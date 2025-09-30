@@ -1,18 +1,26 @@
-const GRID = 16;
+const GRID = 32;
 const CELL = 1080 / GRID;
+let isDaytime = false;
 
 
 function setup() {
   createCanvas(1080, 1080);
   noStroke();
-  //noLoop();
+  //  noLoop();
   frameRate(6);
+  const currentHour = hour();
+  isDaytime = (currentHour >= 7 && currentHour < 19);
 }
 
 function draw() {
   background(255, 255, 220);
-  const cz = random(60, CELL);
-  const sz = random(60, CELL + 20);
+  if (isDaytime == true) {
+    background('light yellow');
+  } else {
+    background('indigo');
+  }
+  const cz = random(40, CELL - 4);
+  const sz = random(0, CELL - 40);
 
   for (let gy = 0; gy < GRID; gy++) {
     for (let gx = 0; gx < GRID; gx++) {
@@ -20,17 +28,27 @@ function draw() {
       const cy = gy * CELL + CELL / 2;
 
       push();
-      fill('pink');
+      fill('#afff00');
+      rotate(QUARTER_PI);
       rectMode(CENTER);
       rect(cx, cy, cz, cz);
       pop();
 
       push();
-      blendMode(MULTIPLY);
+      blendMode(NORMAL);
       translate(cx, cy);
-      fill('lightblue');
+
+      fill('#49c6e7');
       circle(0, 0, sz);
       pop();
+
+      push();
+      strokeWeight(0.5);
+      stroke('pink');
+      line(1080-cx, cx/5, 1080-cx/50,1080-cx);
+      pop();
+
+      /*
       push();
       translate(width / 2, height / 2); // move origin to canvas center
       rotate(random(TWO_PI));       // random rotation
@@ -39,6 +57,7 @@ function draw() {
       fill('cyan');
       triangle(-s / 2, h / 3, s / 2, h / 3, 0, -2 * h / 3);
       pop();
+      */
     }
   }
 }
