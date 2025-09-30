@@ -2,8 +2,8 @@ let body;
 let face;
 
 function preload() {
-  body = loadImage('body.png');
-  face = loadImage('1.png');
+  body = loadImage('gatcha-images/body.png');
+  face = loadImage('gatcha-images/1.png');
 }
 
 function setup() {
